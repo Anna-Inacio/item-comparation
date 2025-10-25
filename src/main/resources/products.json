@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "Notebook Gamer",
+    "imageUrl": "https://example.com/images/notebook-gamer.jpg",
+    "description": "Notebook Gamer com processador Intel i7, 16GB RAM",
+    "price": 5500.50,
+    "classification": "Eletrônicos",
+    "specifications": "Processador: Intel i7, RAM: 16GB"
+  },
+  {
+    "id": 2,
+    "name": "Mouse Sem Fio",
+    "imageUrl": "https://example.com/images/mouse-sem-fio.jpg",
+    "price": 99.99,
+    "classification": "Eletrônicos",
+    "specifications": "Tipo: Óptico, Conexão: Bluetooth"
+  },
+  {
+    "id": 3,
+    "name": "Monitor Ultra HD",
+    "imageUrl": "https://example.com/images/monitor-ultra-hd.jpg",
+    "description": "Monitor Ultra HD 4K de 27 polegadas",
+    "price": 2200.00,
+    "classification": "Eletrônicos",
+    "specifications": "Resolução: 3840x2160, Tamanho: 27 polegadas"
+  }
+]
