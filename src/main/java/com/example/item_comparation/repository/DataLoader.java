@@ -1,6 +1,7 @@
 package com.example.item_comparation.repository;
 
 import com.example.item_comparation.domain.Product;
+import com.example.item_comparation.exception.DataLoadException;
 import com.example.item_comparation.service.ProductsService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,12 +30,10 @@ public class DataLoader implements CommandLineRunner {
 
         try {
             List<Product> products = mapper.readValue(inputStream, typeReference);
-            productsService.saveAll(products); // Salva na memória
-            System.out.println("Produtos JSON carregados!");
-        } catch (IOException e){
-            // TODO Lança exceção customizada para ser tratada pelo sistema
-//            throw new DataLoadException("Não foi possível carregar produtos: " + e.getMessage(), e);
-            throw new RuntimeException();
+            productsService.saveAll(products);
+            System.out.println("JSON products loaded!");
+        } catch (IOException exception){
+            throw new DataLoadException("Unable to load product json file: " + exception.getMessage(), exception);
         }
     }
 }
