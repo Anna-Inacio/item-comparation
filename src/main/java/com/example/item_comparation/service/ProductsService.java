@@ -2,6 +2,7 @@ package com.example.item_comparation.service;
 
 import com.example.item_comparation.domain.Product;
 import com.example.item_comparation.exception.ProductNotFoundException;
+import com.example.item_comparation.util.CsvIdParser;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,8 +13,20 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class ProductsService {
     private final Map<Long, Product> repository = new ConcurrentHashMap<>();
+    private final CsvIdParser csvIdParser;
+
+    public ProductsService(CsvIdParser csvIdParser) {
+        this.csvIdParser = csvIdParser;
+    }
 
     // Get all products in json
+    /**
+     * Retorna todos os produtos armazenados. Se não houver produtos, retorna
+     * uma lista vazia em vez de lançar uma exceção — isso mantém o contrato
+     * do endpoint consistente (serializa como `[]`).
+     *
+     * @return lista de produtos (pode ser vazia)
+     */
     public List<Product> getAllProducts() {
         return new ArrayList<>(repository.values());
     }
@@ -40,5 +53,18 @@ public class ProductsService {
 
     public void saveAll(List<Product> products) {
         products.forEach(this::save);
+    }
+
+    public List<Product> compare (List<Long> productIds) {
+        List<Product> products = new ArrayList<>();
+        for (Long id : productIds) {
+            products.add(getProductById(id));
+        }
+        return products;
+    }
+
+    public List<Product> compareFromCsv(String productIdsCsv) {
+        List<Long> ids = csvIdParser.parseToLongList(productIdsCsv);
+        return compare(ids);
     }
 }

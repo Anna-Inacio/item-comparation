@@ -24,5 +24,23 @@
     "price": 2200.00,
     "classification": "Eletrônicos",
     "specifications": "Resolução: 3840x2160, Tamanho: 27 polegadas"
+  },
+  {
+      "id": 4,
+      "name": "Teclado Mecânico",
+      "imageUrl": "https://example.com/images/teclado-mecanico.jpg",
+      "description": "Teclado Mecânico RGB com switches Cherry MX",
+      "price": 450.75,
+      "classification": "Eletrônicos",
+      "specifications": "Switches: Cherry MX, Iluminação: RGB"
+  },
+  {
+      "id": 5,
+      "name": "Cadeira Gamer",
+      "imageUrl": "https://example.com/images/cadeira-gamer.jpg",
+      "description": "Cadeira Gamer ergonômica com suporte lombar",
+      "price": 1200.00,
+      "classification": "Móveis",
+      "specifications": "Material: Couro sintético, Suporte: Lombar ajustável"
   }
 ]

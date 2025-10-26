@@ -29,4 +29,13 @@ public class ProductsController {
         var product = productsService.getProductById(productId);
         return ResponseEntity.ok(product);
     }
+
+    @GetMapping("/compare/{productIds}")
+    public ResponseEntity<List<Product>> compareProductsNoParams(@PathVariable("productIds") String productIds) {
+        var products = productsService.compareFromCsv(productIds);
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(products);
+    }
 }
