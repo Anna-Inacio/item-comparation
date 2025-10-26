@@ -18,9 +18,6 @@ public class ProductsController {
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         var products = productsService.getAllProducts();
-        if (products.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
         return ResponseEntity.ok(products);
     }
 
