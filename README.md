@@ -224,3 +224,6 @@ curl -s "http://localhost:8080/products/compare/1,2" -H "Accept: application/jso
 - `pom.xml`
 
 ---
+# Diagrama
+
+<img width="1432" height="527" alt="DesafioMeli drawio" src="https://github.com/user-attachments/assets/b39cbafd-caba-4a38-9d34-97916c0be9a5" />
