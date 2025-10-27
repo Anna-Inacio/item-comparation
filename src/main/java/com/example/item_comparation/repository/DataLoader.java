@@ -26,14 +26,17 @@ public class DataLoader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<Product>> typeReference = new TypeReference<>() {};
-        InputStream inputStream = new ClassPathResource("products.json").getInputStream();
 
-        try {
+        try (InputStream inputStream = openProductsInputStream()) {
             List<Product> products = mapper.readValue(inputStream, typeReference);
             productsService.saveAll(products);
             System.out.println("JSON products loaded!");
         } catch (IOException exception){
             throw new DataLoadException("Unable to load product json file: " + exception.getMessage(), exception);
         }
+    }
+
+    protected InputStream openProductsInputStream() throws IOException {
+        return new ClassPathResource("products.json").getInputStream();
     }
 }
