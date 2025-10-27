@@ -33,7 +33,7 @@ public class ProductsService {
             }
             repository.put(product.getId(), product);
             return product;
-        } catch (Exception ex) {
+        } catch (Exception exception) {
             throw new InternalServerErrorException("Internal error saving product."); // Throws generic exception for other errors
         }
     }
@@ -44,7 +44,7 @@ public class ProductsService {
         }
         try {
             products.forEach(this::save);
-        } catch (Exception ex) {
+        } catch (Exception exception) {
             throw new InternalServerErrorException("Internal error saving products"); // Throws generic exception for other errors
         }
     }
@@ -86,9 +86,9 @@ public class ProductsService {
                     .map(this::getProductById)
                     .collect(Collectors.toList());
         } catch (ProductNotFoundException notFoundException) {
-            throw notFoundException;
-        } catch (Exception ex) {
-            throw new InternalServerErrorException("Internal error when comparing products"); // Throws generic exception for other errors
+            throw notFoundException; // Throws exception if not found
+        } catch (Exception exception) {
+            throw new InternalServerErrorException("Internal error when comparing products " + exception); // Throws generic exception for other errors
         }
     }
 
@@ -101,8 +101,10 @@ public class ProductsService {
             return compare(ids);
         } catch (IllegalArgumentException parseEx) {
             throw new IllegalArgumentException("Invalid productIdsCsv" + parseEx.getMessage(), parseEx); // Throws exception for parsing errors
+        } catch (ProductNotFoundException notFoundException) {
+            throw notFoundException; // Throws exception if not found
         } catch (Exception exception) {
-            throw new InternalServerErrorException("Internal error when comparing products" + exception.getMessage()); // Throws generic exception for other errors
+            throw new InternalServerErrorException("Internal error when comparing products from CSV " + exception); // Throws generic exception for other errors
         }
     }
 }
