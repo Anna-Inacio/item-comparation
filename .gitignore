@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Additional IDE-specific ignores (workspace and local plugin state)
+# Keep project-level IDE settings, but ignore per-developer workspace and plugin state
+.idea/workspace.xml
+.idea/shelf/
+.idea/copilot*.xml
+.idea/.gitignore
