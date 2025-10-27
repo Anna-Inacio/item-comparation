@@ -25,7 +25,7 @@ public class ProductsService {
 
     public Product save(Product product) {
         if (product == null) {
-            throw new IllegalArgumentException("Product must not be null");
+            throw new IllegalArgumentException("Product must not be null"); // Throws exception for null product
         }
         try {
             if (product.getId() == null) {
@@ -34,18 +34,18 @@ public class ProductsService {
             repository.put(product.getId(), product);
             return product;
         } catch (Exception ex) {
-            throw new InternalServerErrorException("Internal error saving product.");
+            throw new InternalServerErrorException("Internal error saving product."); // Throws generic exception for other errors
         }
     }
 
     public void saveAll(List<Product> products) {
         if (products == null) {
-            throw new IllegalArgumentException("Products list must not be null");
+            throw new IllegalArgumentException("Products list must not be null"); // Throws exception for null list
         }
         try {
             products.forEach(this::save);
         } catch (Exception ex) {
-            throw new InternalServerErrorException("Internal error saving products");
+            throw new InternalServerErrorException("Internal error saving products"); // Throws generic exception for other errors
         }
     }
 
@@ -59,7 +59,7 @@ public class ProductsService {
 
     public Product getProductById(Long productId) {
         if (productId == null) {
-            throw new IllegalArgumentException("productId is required");
+            throw new IllegalArgumentException("productId is required"); // Throws exception for null productId
         }
         try {
             Product product = repository.get(productId);
@@ -76,35 +76,33 @@ public class ProductsService {
 
     public List<Product> compare(List<Long> productIds) {
         if (productIds == null) {
-            throw new IllegalArgumentException("productIds must not be null");
+            throw new IllegalArgumentException("productIds must not be null"); // Throws exception for null list
         }
         if (productIds.isEmpty()) {
             return Collections.emptyList();
         }
         try {
             return productIds.stream()
-                    .map(this::getProductById) // propaga ProductNotFoundException quando aplicável
+                    .map(this::getProductById)
                     .collect(Collectors.toList());
         } catch (ProductNotFoundException notFoundException) {
             throw notFoundException;
         } catch (Exception ex) {
-            throw new InternalServerErrorException("Internal error when comparing products");
+            throw new InternalServerErrorException("Internal error when comparing products"); // Throws generic exception for other errors
         }
     }
 
     public List<Product> compareFromCsv(String productIdsCsv) {
         if (productIdsCsv == null || productIdsCsv.trim().isEmpty()) {
-            throw new IllegalArgumentException("productIdsCsv must not be null or empty");
+            throw new IllegalArgumentException("productIdsCsv must not be null or empty"); // Throws exception for null or empty input
         }
         try {
             List<Long> ids = csvIdParser.parseToLongList(productIdsCsv);
             return compare(ids);
         } catch (IllegalArgumentException parseEx) {
-            throw new IllegalArgumentException("Invalid productIdsCsv" + parseEx.getMessage(), parseEx);
-        } catch (ProductNotFoundException notFoundException) {
-            throw notFoundException;
+            throw new IllegalArgumentException("Invalid productIdsCsv" + parseEx.getMessage(), parseEx); // Throws exception for parsing errors
         } catch (Exception exception) {
-            throw new InternalServerErrorException("Internal error when comparing products" + exception.getMessage());
+            throw new InternalServerErrorException("Internal error when comparing products" + exception.getMessage()); // Throws generic exception for other errors
         }
     }
 }
