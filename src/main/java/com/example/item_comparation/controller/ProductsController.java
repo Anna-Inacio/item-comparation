@@ -35,4 +35,19 @@ public class ProductsController {
         }
         return ResponseEntity.ok(products);
     }
+
+    @GetMapping("/compare")
+    public ResponseEntity<List<Product>> compareProducts(@RequestBody List<Long> productIds) {
+        var products = productsService.compare(productIds);
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(products);
+    }
+
+    @PostMapping
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        var savedProduct = productsService.save(product);
+        return ResponseEntity.ok(savedProduct);
+    }
 }

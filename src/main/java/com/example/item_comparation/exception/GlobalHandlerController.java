@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import java.time.LocalDateTime;
 
-@RestControllerAdvice
+@RestControllerAdvice // A global exception handler for REST controllers
 public class GlobalHandlerController {
 
     @ExceptionHandler(ProductNotFoundException.class)
